@@ -8,7 +8,7 @@ module.exports = {
   devtool: 'eval',
   entry: [
     'webpack-hot-middleware/client?noInfo=true',
-    '../post-it/app/client/index.jsx'
+    '../postit-devops/app/client/index.jsx'
   ],
   output: {
     path: '/',
