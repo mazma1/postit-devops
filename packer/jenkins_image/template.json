@@ -1,0 +1,28 @@
+{
+  "variables": {
+    "ami_id": "ami-af79ebc0"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "eu-central-1",
+      "source_ami": "{{user `ami_id`}}",
+      "instance_type": "t2.micro",
+      "ssh_username": "ubuntu",
+      "ami_name": "Jenkins-{{timestamp}}",
+      "tags": {
+        "name": "Jenkins Image"
+      }
+
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+          "./packer/jenkins_image/scripts/configure_jenkins.sh"
+      ]
+  }
+  ],
+  "post-processors": []
+}

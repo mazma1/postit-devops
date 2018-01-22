@@ -1,0 +1,27 @@
+{
+  "variables": {
+    "ami_id": "ami-af79ebc0"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "eu-central-1",
+      "source_ami": "{{user `ami_id`}}",
+      "instance_type": "t2.micro",
+      "ssh_username": "ubuntu",
+      "ami_name": "NodeJs-{{timestamp}}",
+      "tags": {
+        "name": "NodeJs Image"
+      }
+
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+          "./packer/app_image/scripts/node.sh"
+      ]
+  }
+  ]
+}
