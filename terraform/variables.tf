@@ -1,5 +1,9 @@
-variable "aws_ami_id" { 
-  default = "ami-1774ea78"
+data "aws_ami" "app_ami" {
+  most_recent = true
+  filter {
+    name = "name"
+      values = ["app-*"]
+  }
 }
 
 variable "vpc_id" {
