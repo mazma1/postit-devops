@@ -24,19 +24,24 @@
     {
       "type": "shell",
       "inline": [
-        "sudo chmod +x /home/jenkins/archive/packer/app_image/scripts/create_directory.sh"
+        "sudo mkdir -p /home/ubuntu/post-it",
+        "sudo chmod -R 777 /home/ubuntu/post-it"
       ]
     },
     {
       "type":"file",
       "direction":"upload",
       "source":"/home/jenkins/archive",
-      "destination":"/home/ubuntu/app"
+      "destination":"/home/ubuntu/post-it"
+    },
+    {
+      "type":"shell",
+      "inline": ["ls /home/ubuntu/post-it/archive"]
     },
     {
       "type": "shell",
       "inline": [
-        "sudo chmod +x /home/jenkins/archive/packer/app_image/scripts/node.sh"
+        "sudo chmod +x /home/ubuntu/post-it/archive/packer/app_image/scripts/node.sh"
       ]
     }
   ]

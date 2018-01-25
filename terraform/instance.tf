@@ -18,27 +18,26 @@ resource "aws_security_group" "demo" {
   }
 
   ingress {
-      from_port = 80
-      to_port = 80
-      protocol = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
-      }
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
   ingress {
-      from_port = 3000
-      to_port = 3000
-      protocol = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
-      }
+    from_port = 3000
+    to_port = 3000
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
   ingress {
-      from_port = 22
-      to_port = 22
-      protocol = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
-      }
-
-   }
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
 
 resource "aws_instance" "app" {
   ami = "${data.aws_ami.app_ami.id}"
@@ -52,6 +51,9 @@ resource "aws_instance" "app" {
   }
   lifecycle {
     create_before_destroy = true
+  }
+  provisioner "remote-exec" {
+    script = "sudo chmod +x /home/jenkins/archive/scripts/start-app.sh"
   }
 }
 

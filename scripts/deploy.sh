@@ -9,11 +9,6 @@ set -o xtrace
 # exit if previous command returns a non 0 status
 set -o pipefail 
 
-declare_env_variables() {
-  AMI_ID=""
-  JENKINS_SERVER_IP="18.195.138.186"
-}
-
 download_unzip_build_artifact() {
   if [[ -f artifact.zip ]]; then
     sudo rm artifact.zip
@@ -41,7 +36,6 @@ provision_infrastructure() {
 }
 
 deploy() {
-  declare_env_variables
   download_unzip_build_artifact
   create_packer_image
   provision_infrastructure
