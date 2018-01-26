@@ -14,4 +14,8 @@ variable "subnet_id" {
     default = "subnet-3b825446"
 } 
 
+variable "region" {
+  default = "eu-central-1"
+}
+
 

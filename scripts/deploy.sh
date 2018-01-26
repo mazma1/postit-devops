@@ -31,13 +31,20 @@ create_packer_image() {
 provision_infrastructure() {
   cd /home/jenkins/archive/terraform
   terraform init -backend=true
-  terraform plan  -var="aws_ami_id=${AMI_ID}" -var="aws_access_key=${AWS_ACCESS_KEY_ID}" -var="aws_secret_key=${AWS_SECRET_ACCESS_KEY}"
-  terraform apply  -var="aws_ami_id=${AMI_ID}" -var="aws_access_key=${AWS_ACCESS_KEY_ID}" -var="aws_secret_key=${AWS_SECRET_ACCESS_KEY}" -auto-approve
+  terraform plan  -var="access_key=${AWS_ACCESS_KEY_ID}" -var="secret_key=${AWS_SECRET_ACCESS_KEY}"
+  terraform apply -var="access_key=${AWS_ACCESS_KEY_ID}" -var="secret_key=${AWS_SECRET_ACCESS_KEY}" -var="private_key=${EssentialsKeyPair}" -auto-approve
 }
+
+# provision_infrastructure() {
+#   cd /home/jenkins/archive/terraform
+#   terraform init -backend=true
+#   terraform plan
+#   terraform apply -auto-approve
+# }
 
 deploy() {
   download_unzip_build_artifact
-  create_packer_image
+  # create_packer_image
   provision_infrastructure
 }
 

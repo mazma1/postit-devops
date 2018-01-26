@@ -1,7 +1,7 @@
 provider "aws" {
-  access_key = "${var.aws_access_key}"
-  secret_key = "${var.aws_secret_key}"
-  region     = "eu-central-1"
+  # access_key = "${var.env.AWS_ACCESS_KEY_ID}"
+  # secret_key = "${var.env.AWS_SECRET_ACCESS_KEY}"
+  region     = "${var.region}"
 }
 
 resource "random_string" "tag" {
@@ -10,7 +10,7 @@ resource "random_string" "tag" {
 }
 
 resource "aws_security_group" "demo" {
-  name = "Terraform/Packer"
+  name = "Terraform/Packer - ${random_string.tag.result}"
   description = "Terraform/Packer Demo"
   vpc_id = "${var.vpc_id}"
   lifecycle {
@@ -52,24 +52,39 @@ resource "aws_instance" "app" {
   lifecycle {
     create_before_destroy = true
   }
+  provisioner "file" {
+    source      = "/home/jenkins/archive/scripts/start-app.sh"
+    destination = "/tmp/start-app.sh"
+
+    connection {
+      type     = "ssh"
+      user     = "ubuntu"
+      agent    = false
+      private_key = "${file("/home/ubuntu/config/EssentialsKeyPair.pem")}"
+    }
+  }
   provisioner "remote-exec" {
-    script = "sudo chmod +x /home/jenkins/archive/scripts/start-app.sh"
+    inline = [
+      # "ssh -i 'EssentialsKeyPair.pem' ubuntu@${aws_instance.app.public_ip}",
+      "sudo chmod +x /tmp/start-app.sh"
+    ]
   }
 }
 
-resource "aws_s3_bucket" "terraform-state-storage" {
-    bucket = "terraform-state-storage"
+# resource "aws_s3_bucket" "terraform-state-storage" {
+#     bucket = "postit-terraform-state-storage"
  
-    versioning {
-      enabled = true
-    }
+#     versioning {
+#       enabled = true
+#     }
  
-    lifecycle {
-      prevent_destroy = true
-    }
+#     lifecycle {
+#       prevent_destroy = true
+#     }
  
-    tags {
-      Name = "Terraform State Store"
-    }      
-}
+#     tags {
+#       Name = "Terraform State Store"
+#     }      
+# }
+
 
