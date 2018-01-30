@@ -52,39 +52,7 @@ resource "aws_instance" "app" {
   lifecycle {
     create_before_destroy = true
   }
-  provisioner "file" {
-    source      = "/home/jenkins/archive/scripts/start-app.sh"
-    destination = "/tmp/start-app.sh"
-
-    connection {
-      type     = "ssh"
-      user     = "ubuntu"
-      agent    = false
-      private_key = "${file("/home/ubuntu/config/EssentialsKeyPair.pem")}"
-    }
-  }
-  provisioner "remote-exec" {
-    inline = [
-      # "ssh -i 'EssentialsKeyPair.pem' ubuntu@${aws_instance.app.public_ip}",
-      "sudo chmod +x /tmp/start-app.sh"
-    ]
-  }
 }
 
-# resource "aws_s3_bucket" "terraform-state-storage" {
-#     bucket = "postit-terraform-state-storage"
- 
-#     versioning {
-#       enabled = true
-#     }
- 
-#     lifecycle {
-#       prevent_destroy = true
-#     }
- 
-#     tags {
-#       Name = "Terraform State Store"
-#     }      
-# }
 
 

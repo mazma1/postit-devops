@@ -36,12 +36,22 @@
     },
     {
       "type":"shell",
-      "inline": ["ls /home/ubuntu/post-it/archive"]
+      "inline": [
+        "sudo cp /home/ubuntu/post-it/archive/packer/app_image/postit.conf /etc/systemd/system/postit.service"
+      ]
     },
     {
       "type": "shell",
       "inline": [
         "sudo chmod +x /home/ubuntu/post-it/archive/packer/app_image/scripts/node.sh"
+      ]
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "sudo systemctl daemon-reload",
+        "sudo systemctl enable postit.service",
+        "sudo systemctl start postit.service"
       ]
     }
   ]
