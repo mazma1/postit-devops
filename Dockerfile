@@ -11,7 +11,7 @@ RUN npm run production
 
 
 #Job 2: build image using artifacts from job 1
-FROM node:6.11.2
+FROM node:alpine
 RUN mkdir -p /usr/src/post-it/
 WORKDIR /usr/src/post-it
 
