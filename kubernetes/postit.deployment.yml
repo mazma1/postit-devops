@@ -11,6 +11,6 @@ spec:
     spec:
       containers:
         - name: post-it
-          image: mazma/app-image:latest
+          image: mazma/app-image:${BUILD_NUMBER}
           ports:
             - containerPort: 3000
