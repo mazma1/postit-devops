@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: post-it
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: post-it
+    spec:
+      containers:
+        - name: post-it
+          image: mazma/app-image:latest
+          ports:
+            - containerPort: 3000
