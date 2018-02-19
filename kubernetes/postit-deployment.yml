@@ -1,0 +1,52 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: post-it
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: post-it
+    spec:
+      containers:
+        - name: post-it
+          image: mazma/app-image:${BUILD_NUMBER}
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                    name: env
+                    key: DATABASE_URL
+            - name: TOKEN_SECRET
+              valueFrom:
+                secretKeyRef:
+                    name: env
+                    key: TOKEN_SECRET
+            - name: ADMIN_EMAIL
+              valueFrom:
+                secretKeyRef:
+                    name: env
+                    key: ADMIN_EMAIL
+            - name: EMAIL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                    name: env
+                    key: EMAIL_PASSWORD
+            - name: NEXMO_KEY
+              valueFrom:
+                secretKeyRef:
+                    name: env
+                    key: NEXMO_KEY
+            - name: NEXMO_SECRET
+              valueFrom:
+                secretKeyRef:
+                    name: env
+                    key: NEXMO_SECRET
+            - name: SEED_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                    name: env
+                    key: SEED_PASSWORD

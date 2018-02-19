@@ -24,5 +24,5 @@ COPY webpack.config.prod.js ./
 EXPOSE 3000
 RUN npm install
 ENV NODE_ENV=production
-ENV DATABASE_URL=postgres://tcxhnteqhkstgo:ea4213bef22260fad45241f2aaa33b6c9e3b2a48ee87a2c139a1e06ee74e2ce1@ec2-23-23-159-84.compute-1.amazonaws.com:5432/dd9sal0h5ihs8s
+ENV DATABASE_URL=postgres://apvyqqyw:_gRRoT-VhKF4CCwJ1iE9spmjuk-BG-O2@baasu.db.elephantsql.com:5432/apvyqqyw
 CMD ["npm", "start"]
