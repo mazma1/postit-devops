@@ -91,7 +91,7 @@ export class HomePage extends React.Component {
                   <div className="col s12 m10 offset-m1 center">
                     <header className="index-header">
                       <h2 className="light"><b>Welcome to PostIT!</b></h2>
-                      <h6>Managed by Kubernetes on AWS..</h6>
+                      <h6>Managed by Kubernetes on AWS | DEMO ¯\_(ツ)_/¯</h6>
                     </header>
                     <div className="auth">
                       <h4 className="index-line-height">
