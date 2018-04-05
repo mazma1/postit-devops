@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: demo-ingress
+  namespace: default
+spec:
+  tls:
+  - secretName: env
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: post-it
+          servicePort: 3000
